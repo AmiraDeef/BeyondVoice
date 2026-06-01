@@ -1,0 +1,46 @@
+# =====================================================================
+# ROOT / GENERAL
+# =====================================================================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+
+# =====================================================================
+# BACKEND / NODEJS
+# =====================================================================
+# Dependency directories
+Backend/node_modules/
+
+# Environment variables (Crucial for security!)
+Backend/.env
+Backend/.env.local
+Backend/.env.*.local
+
+# Production/Build outputs
+Backend/dist/
+Backend/build/
+
+# =====================================================================
+# FRONTEND / REACT / VITE
+# =====================================================================
+# Dependency directories
+Frontend/node_modules/
+Frontend/*/node_modules/
+
+# Production build outputs
+Frontend/dist/
+Frontend/build/
+Frontend/*/dist/
+Frontend/*/build/
+
+# Local environment files
+Frontend/.env.local
+Frontend/.env.development.local
+Frontend/.env.test.local
+Frontend/.env.production.local
+Frontend/*/.env*.local
+
+# Testing
+Frontend/coverage/
