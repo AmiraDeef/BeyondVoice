@@ -4,9 +4,9 @@ function Register(){
     return(<>
     
     
-    <div className="grid grid-cols-2">
-        <LeftSide/>
-        <RightSide/>
+    <div className="md:grid grid-cols-2 h-screen">
+        <LeftSide type="register" />
+        <RightSide type="register" />
     </div>
     
     </>)

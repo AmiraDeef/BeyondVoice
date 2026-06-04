@@ -1,12 +1,15 @@
-
+import {Routes,Route} from "react-router-dom"
 import './App.css'
 import Register from './pages/Auth/Register'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Login from './pages/Auth/Login'
 function App() {
 
   return (
     <>
-   <Register/>
+    <Routes>
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+    </Routes>
     </>
   )
 }
