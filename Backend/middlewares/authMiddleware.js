@@ -6,7 +6,7 @@ const authMiddleware = (req, res, next) => {
         const token = authHead.split(" ")[1]
 
         const payload = jwt.verify(token, process.env.JWT_SK)
-        req.user = payload.id
+        req.user = payload
         next()
 
     } catch (error) {

@@ -29,7 +29,7 @@ const UserSchema = mongoose.Schema({
             values:["candidate", "company", "admin"],
             message: 'Please choose a valid role'
         } ,
-    },
+    },profilePhoto: { type: String }
 
 }, { timestamps: true })
 
