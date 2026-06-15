@@ -8,7 +8,7 @@ const cors = require("cors");
 
 const errorMiddleware=require("./middlewares/erroMiddleware")
 //user auth
-const authRoute=require("./routes/authRoute")
+const authRoute=require("./routes/auth.route")
 //candidate
 const CanProfileRoute=require("./routes/candidateProfile.route")
 

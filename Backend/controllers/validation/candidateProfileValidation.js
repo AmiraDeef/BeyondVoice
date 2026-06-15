@@ -1,7 +1,7 @@
 const joi= require("joi")
 
 const candidateProfileSchema = joi.object({
-    title: joi.string().trim().required().max(100).min(10).message({
+    title: joi.string().trim().required().max(100).min(10).messages({
         'string.empty': ' Title is required',
         'string.min': 'Title should be at least 3 characters'
     }),
