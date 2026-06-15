@@ -3,10 +3,10 @@ import{Link} from 'react-router-dom'
 function Navbar(){
     return(
         <>
-        <div className="w-full bg-white border-b border-gray-100 sticky top-0 z-50">
-        <div className="container mx-auto flex items-center justify-between h-16">
-          <div className="flex items-center">
-            <Link to="/" className="text-xl font-bold text-[var(--main-color)] mr-4">
+        <div className=" bg-white border-b border-gray-100 sticky top-0 z-50 ">
+        <div className="container mx-auto flex items-center justify-around h-16  md:justify-between ">
+          <div>
+            <Link to="/" className="text-xl font-bold text-[var(--main-color)] ">
               Beyond Voice
             </Link>
           </div>

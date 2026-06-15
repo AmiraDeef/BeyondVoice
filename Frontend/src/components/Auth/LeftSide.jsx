@@ -33,7 +33,7 @@ function LeftSide({ type }) {
           {isRegister ? (
             <div className="grid grid-cols-3 w-full max-w-md">
               <div class="flex flex-col  text-center">
-                <span class="text-2xl md:text-3xl font-bold text-teal-700  ">
+                <span class="text-2xl md:text-3xl font-bold text-[var(--secondary-color)]  ">
                   12K+
                 </span>
                 <span class="text-xs md:text-sm text-[var(--grey-color)] mt-1">
