@@ -1,10 +1,13 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import Input from "../ui/Input";
+import { api } from "../../api/axios"
 import { faUser, faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 function RightSide({ type }) {
   const isRegister = type === "register";
   const [role, setRole] = useState("candidate");
+
 
   return (
     <>

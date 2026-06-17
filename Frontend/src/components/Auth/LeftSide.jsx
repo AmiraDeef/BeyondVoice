@@ -8,7 +8,7 @@ function LeftSide({ type }) {
   return (
     <>
       <div className="bg-[var(--bg-color)] hidden md:flex flex-col min-h-screen w-full overflow-hidden">
-        <div className="p-6 md:p-10 flex flex-col justify-start gap-12 flex-1 w-full max-w-2xl mx-auto">
+        <div className="p-6 md:p-10 flex flex-col justify-between h-full py-12 flex-1 w-full max-w-2xl mx-auto">
           <div className="w-full">
             <img
               src={logoImg}
