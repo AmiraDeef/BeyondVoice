@@ -1,6 +1,6 @@
 const mongoose=require("mongoose")
 
-const candidateSchema=mongoose.Schema({
+const candidateSchema=new mongoose.Schema({
     user:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

@@ -1,10 +1,13 @@
 const Candidate = require("../models/Candidate")
+const User = require("../models/User")
 const { candidateProfileSchema } = require("./validation/candidateProfileValidation")
 
 const getProfile = async (req, res, next) => {
     try {
 
-        const userId = req.user.id;
+        const userId = req.userId;
+        console.log(userId, req.userRole);
+
         const canProfile = await Candidate.findOne({ user: userId }).populate('user', 'fullName email profilePhoto')
         if (!canProfile) return res.status(404).json({ message: "Profile not found" })
         const proCount = {
@@ -15,12 +18,12 @@ const getProfile = async (req, res, next) => {
             skills: canProfile.skills?.length > 0 ? 15 : 0,
             experience: canProfile.experience?.length > 0 ? 20 : 0,
             education: canProfile.education?.length > 0 ? 10 : 0,
-            links: (canProfile.githubUrl || canProfile.linkedinUrl||canProfile.portfolioUrl) ? 10 : 0
+            links: (canProfile.githubUrl || canProfile.linkedinUrl || canProfile.portfolioUrl) ? 10 : 0
         };
         const completeScore = proCount.fullName + proCount.bio + proCount.education + proCount.experience + proCount.links + proCount.profilePhoto + proCount.skills + proCount.title
         // console.log(completeScore)
 
-        return res.status(200).json({ canProfile ,completeScore});
+        return res.status(200).json({ canProfile, completeScore });
 
     } catch (error) {
         next(error)
@@ -40,7 +43,7 @@ const createProfile = async (req, res, next) => {
                 message: error.details.map((err) => err.message)
             })
         }
-        const userId = req.user.id;
+        const userId = req.userId;
         const alreadyHasProfile = await Candidate.findOne({ user: userId });
         if (alreadyHasProfile) {
             return res.status(400).json({ message: "Profile already exists!" });
@@ -74,10 +77,10 @@ const updateProfile = async (req, res, next) => {
                 message: error.details.map((err) => err.message)
             })
         }
-        const userId = req.user.id;
+        const userId = req.userId;
 
         const updatedProfile = await Candidate.findOneAndUpdate(
-            { user: req.user.id },
+            { user: userId },
             { $set: value },
             { new: true, runValidators: true }
         );
@@ -94,20 +97,17 @@ const updateProfile = async (req, res, next) => {
 
 const deleteProfile = async (req, res, next) => {
     try {
-        const userId = req.user.id
+        const userId = req.userId
         const canProfile = await Candidate.findOneAndDelete({ user: userId })
-        if (!canProfile) return res.status(404).json({ message: "Profile not found" })
 
+        if (!canProfile) return res.status(404).json({ message: "Profile not found" })
+        await User.findByIdAndDelete(userId);
         return res.status(200).json({
             message: "profile is deleted successfully"
         })
     } catch (error) {
         next(error)
     }
-
-
-
-
 }
 
 module.exports = {
