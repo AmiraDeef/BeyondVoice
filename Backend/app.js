@@ -11,6 +11,10 @@ const errorMiddleware=require("./middlewares/erroMiddleware")
 const authRoute=require("./routes/auth.route")
 //candidate
 const CanProfileRoute=require("./routes/candidateProfile.route")
+//company
+const CampanyProfileRoute=require("./routes/companyProfile.route")
+//job
+const jobRoute=require("./routes/job.route")
 
 const app = express();
 
@@ -34,7 +38,9 @@ const dbConnection=async()=>{
 dbConnection();
 
 app.use("/",authRoute)
-app.use("/",CanProfileRoute)
+app.use("/candidate",CanProfileRoute)
+app.use("/company",CampanyProfileRoute)
+app.use("/jobs",jobRoute)
 
 CanProfileRoute
 app.use(errorMiddleware)
