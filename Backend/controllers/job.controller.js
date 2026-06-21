@@ -13,11 +13,14 @@ const getCompanyJobs = async (req, res, next) => {
         if (!companyProfile) {
             return res.status(404).json({ message: "Company profile not found!" });
         }
-        const compJobs = await Job.find({company:companyProfile._id})
+        // console.log();
+        
+        const compJobs = await Job.find({company:userId}).populate("company", "companyName")
         if (!compJobs || compJobs.length === 0) {
             return res.status(200).json({ message: "There are no jobs yet", jobs: [], count: 0 });
         }
-        return res.status(200).json({ jobs: compJobs, count: job.countDocuments({ company: companyProfile._id }) }).populate("company", "companyName")
+        const jobCount=await Job.countDocuments({ company:userId });
+        return res.status(200).json({ jobs: compJobs, count: jobCount })
 
     } catch (error) {
         next(error)
@@ -50,11 +53,13 @@ const createJob = async (req, res, next) => {
         if (error) return res.status(400).json({
             message: error.details.map((err) => err.message)
         })
-        const company = await Company.findOne({user:userId})
+        const company = await Company.findOne({ user: userId });
         console.log(company,userId);
         
         if (!company) return res.status(404).json({ message: "Company profile not found!"});
-        const newJob = await Job.create(...value)
+        const newJob = await Job.create({
+            company:userId,
+            ...value})
 
         return res.status(201).json({
             newJob

@@ -11,8 +11,8 @@
 const {authMiddleware}=require('../middlewares/authMiddleware')
 
 
-router.get("/",getCompanyJobs)
-router.get("/:id",getJob)
+router.get("/",authMiddleware,getCompanyJobs)
+router.get("/:id",authMiddleware,getJob)
 router.post("/",authMiddleware,createJob)
 router.put("/:id",authMiddleware,updateJob)
 router.delete("/:id",authMiddleware,deleteJob)
