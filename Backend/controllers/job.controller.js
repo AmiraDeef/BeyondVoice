@@ -1,26 +1,37 @@
-const {jobSchemaValidation} = require("./validation/jobVlidation")
+const { jobSchemaValidation } = require("./validation/jobVlidation")
 const Job = require("../models/Job")
 const Company = require("../models/Company")
+const Application = require("../models/Application")
+const { options } = require("joi")
 
 
 
 
-
-const getCompanyJobs = async (req, res, next) => {
+const getAllJobs = async (req, res, next) => {
     try {
-        const userId = req.userId
-        const companyProfile = await Company.findOne({ user: userId });
-        if (!companyProfile) {
-            return res.status(404).json({ message: "Company profile not found!" });
+
+        const { search } = req.query
+        let query = { status: "open" };
+        if (search) {
+            const campanies = await Company.find({ companyName: { $regex: search, $options: "i" } }).select("_id")
+            // console.log(campanies);
+            const matchedComId = campanies.map((com) => com.id)
+
+            query.$or = [
+                { company: { $in: matchedComId } },
+                { title: { $regex: search, $options: "i" } },
+                { category: { $regex: search, $options: "i" } },
+                { workType: { $regex: search, $options: "i" } },
+            ]
         }
-        // console.log();
-        
-        const compJobs = await Job.find({company:userId}).populate("company", "companyName")
-        if (!compJobs || compJobs.length === 0) {
+        const jobs = await Job.find(query).populate("company", "companyName")
+        console.log(jobs);
+
+        if (!jobs || jobs.length === 0) {
             return res.status(200).json({ message: "There are no jobs yet", jobs: [], count: 0 });
         }
-        const jobCount=await Job.countDocuments({ company:userId });
-        return res.status(200).json({ jobs: compJobs, count: jobCount })
+        const jobsCount = await Job.countDocuments(query);
+        return res.status(200).json({ jobs: jobs, count: jobsCount })
 
     } catch (error) {
         next(error)
@@ -53,13 +64,14 @@ const createJob = async (req, res, next) => {
         if (error) return res.status(400).json({
             message: error.details.map((err) => err.message)
         })
-        const company = await Company.findOne({ user: userId });
-        console.log(company,userId);
-        
-        if (!company) return res.status(404).json({ message: "Company profile not found!"});
+        const company = await Company.findOne({ user: userId }).select("_id");
+        // console.log(company, userId);
+
+        if (!company) return res.status(404).json({ message: "Company profile not found!" });
         const newJob = await Job.create({
-            company:userId,
-            ...value})
+            company: company.id,
+            ...value
+        })
 
         return res.status(201).json({
             newJob
@@ -79,7 +91,8 @@ const updateJob = async (req, res, next) => {
             return res.status(403).json({ message: "Unauthorized! Only companies can update jobs." });
         }
 
-        
+        // console.log(jobId);
+
         const { error, value } = jobSchemaValidation.validate(req.body, {
             abortEarly: false,
             stripUnknown: true
@@ -91,14 +104,15 @@ const updateJob = async (req, res, next) => {
             });
         }
 
-        const companyProfile = await Company.findOne({ user: userId });
+        const companyProfile = await Company.findOne({ user: userId }).select("_id");
         if (!companyProfile) return res.status(404).json({ message: "Company profile not found!" });
 
-    
+        // console.log(companyProfile.id);
+
         const updatedJob = await Job.findOneAndUpdate(
-            { _id: jobId, company: companyProfile._id },
+            { _id: jobId, company: companyProfile.id },
             value,
-            { new: true, runValidators: true }
+            { returnDocument: 'after', runValidators: true }
         );
 
         if (!updatedJob) {
@@ -106,7 +120,7 @@ const updateJob = async (req, res, next) => {
         }
 
         return res.status(200).json({
-      
+
             message: "Job updated successfully",
             updatedJob
         });
@@ -115,7 +129,6 @@ const updateJob = async (req, res, next) => {
         next(error);
     }
 
-    
 }
 const deleteJob = async (req, res, next) => {
     try {
@@ -127,18 +140,19 @@ const deleteJob = async (req, res, next) => {
             return res.status(403).json({ message: "Unauthorized! Only companies can delete jobs." });
         }
 
-        const companyProfile = await Company.findOne({ user: userId });
+        const companyProfile = await Company.findOne({ user: userId }).select("_id");
         if (!companyProfile) return res.status(404).json({ message: "Company profile not found!" });
 
-        const deletedJob = await Job.findOneAndDelete({ _id: jobId, company: companyProfile._id });
+        const deletedJob = await Job.findOneAndDelete({ _id: jobId, company: companyProfile.id });
 
         if (!deletedJob) {
             return res.status(404).json({ message: "Job not found or you are not authorized to delete it." });
         }
+        //if any one apply 
         await Application.deleteMany({ job: jobId });
 
         return res.status(200).json({
-          
+
             message: "Job and its related applications deleted successfully"
         });
 
@@ -148,7 +162,7 @@ const deleteJob = async (req, res, next) => {
 };
 
 module.exports = {
-    getCompanyJobs,
+    getAllJobs,
     getJob,
     createJob,
     updateJob,

@@ -2,7 +2,7 @@
  const express=require("express")
  const router=express.Router()
  const{
-    getCompanyJobs,
+    getAllJobs,
     getJob,
     createJob,
     updateJob,
@@ -11,7 +11,7 @@
 const {authMiddleware}=require('../middlewares/authMiddleware')
 
 
-router.get("/",authMiddleware,getCompanyJobs)
+router.get("/",authMiddleware,getAllJobs)
 router.get("/:id",authMiddleware,getJob)
 router.post("/",authMiddleware,createJob)
 router.put("/:id",authMiddleware,updateJob)
