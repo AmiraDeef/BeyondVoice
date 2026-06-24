@@ -48,7 +48,20 @@ const candidateSchema=new mongoose.Schema({
     },
     portfolioUrl:{
         type:String
-    }
+    },  workType: {
+        type: String,
+        enum: [
+            "remote",
+            "onsite",
+            "hybrid"
+        ]
+    },
+    industry: {
+            type: String,
+            required: [true, ' Industry Field is required'],
+            trim: true
+        },
+
 }, { timestamps: true });
 
 const Candidate=mongoose.model("Candidate",candidateSchema)

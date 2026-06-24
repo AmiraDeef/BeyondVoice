@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { type } = require("../controllers/validation/companyProfileValidation");
 
 const applicationSchema = new mongoose.Schema({
     job: {
@@ -8,24 +9,35 @@ const applicationSchema = new mongoose.Schema({
     },
     candidate: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Candidate', 
+        ref: 'Candidate',
         required: true
     },
     company: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Company', 
+        ref: 'Company',
         required: true
     },
     status: {
         type: String,
-        enum: ['pending', 'reviewed', 'accepted', 'rejected'],
+        enum: ['pending', 'reviewed', 'interview', 'accepted', 'rejected'],
         default: 'pending'
-    }
+    }, matchedScore: {
+        type: Number,
+        max: 100,
+        default:0
+    },
+    // addition question before submit
+
+    // additionNotes:{
+    //     type: String,
+    //    required: [true, 'This Field  is required'],
+    //     trim: true
+    // }
 }, { timestamps: true });
 
 //just one application job for one candidate
-applicationSchema.index({"job":1,"candidate":1},{unique:true})
+applicationSchema.index({ "job": 1, "candidate": 1 }, { unique: true })
 
-const Application=mongoose.model("Application",applicationSchema)
+const Application = mongoose.model("Application", applicationSchema)
 
-module.exports=Application
+module.exports = Application

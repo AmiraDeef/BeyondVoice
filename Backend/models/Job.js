@@ -1,4 +1,5 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+const { type } = require("../controllers/validation/companyProfileValidation");
 const jobSchema = new mongoose.Schema({
     company: {
         type: mongoose.Schema.Types.ObjectId,
@@ -42,7 +43,19 @@ const jobSchema = new mongoose.Schema({
         type: String,
         enum: ['open', 'closed'],
         default: 'open'
-    }
+    },
+    
+    //for future work with sign language 
+
+    // accessabilitySupport: {
+    //     type: String,
+    //     enum: [
+    //         "textInterview",
+    //         "writtenInstructions",
+    //         "visualNotifications"
+    //     ],
+    //     required: [true, 'Accessability Support is required'],
+    // }
 }, { timestamps: true });
 const Job = mongoose.model("Job", jobSchema)
 module.exports = Job

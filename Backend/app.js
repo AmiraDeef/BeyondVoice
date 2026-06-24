@@ -15,6 +15,8 @@ const CanProfileRoute=require("./routes/candidateProfile.route")
 const CampanyProfileRoute=require("./routes/companyProfile.route")
 //job
 const jobRoute=require("./routes/job.route")
+//applications
+const applicationRoute=require("./routes/application.route")
 
 const app = express();
 
@@ -41,6 +43,8 @@ app.use("/",authRoute)
 app.use("/candidate",CanProfileRoute)
 app.use("/company",CampanyProfileRoute)
 app.use("/jobs",jobRoute)
+app.use("/applications",applicationRoute)
+
 
 CanProfileRoute
 app.use(errorMiddleware)
