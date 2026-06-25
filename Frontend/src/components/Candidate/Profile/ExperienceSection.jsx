@@ -1,0 +1,117 @@
+import { useFieldArray } from "react-hook-form";
+import ProfileInput from "../../ui/ProfileInput";
+import TextArea from "../../ui/TextArea";
+
+function ExperienceSection({
+    control,
+    register
+}) {
+
+    const { fields, append, remove } =
+        useFieldArray({
+            control,
+            name: "experience"
+        });
+
+    return (
+        <div>
+
+            {fields.map((field, index) => (
+
+                <div
+                    key={field.id}
+                    className="
+                    border border-[var(--main-color)]
+                    rounded-xl
+                    p-5
+                    mb-5
+                "
+                >
+
+                    <div className="grid md:grid-cols-2 gap-4">
+
+                        <ProfileInput
+                            label="Company Name"
+                            {...register(
+                                `experience.${index}.companyName`
+                            )}
+                        />
+
+                        <ProfileInput
+                            label="Role"
+                            {...register(
+                                `experience.${index}.role`
+                            )}
+                        />
+
+                        <ProfileInput
+                            type="date"
+                            label="Start Date"
+                            {...register(
+                                `experience.${index}.startDate`
+                            )}
+                        />
+
+                        <ProfileInput
+                            type="date"
+                            label="End Date"
+                            {...register(
+                                `experience.${index}.endDate`
+                            )}
+                        />
+
+                    </div>
+
+                    <div className="mt-4">
+
+                        <TextArea
+                            label="Description"
+                            {...register(
+                                `experience.${index}.description`
+                            )}
+                        />
+
+                    </div>
+
+                    <button
+                        type="button"
+                        onClick={() => remove(index)}
+                        className="
+                        mt-4
+                        text-red-500
+                    "
+                    >
+                        Remove
+                    </button>
+
+                </div>
+
+            ))}
+
+            <button
+                type="button"
+                onClick={() =>
+                    append({
+                        companyName: "",
+                        role: "",
+                        startDate: "",
+                        endDate: "",
+                        description: ""
+                    })
+                }
+                className="
+                  bg-[var(--secondary-color)]
+                    text-white
+                    px-4
+                    py-2
+                    rounded-xl
+                "
+            >
+                Add Experience
+            </button>
+
+        </div>
+    );
+}
+
+export default ExperienceSection;

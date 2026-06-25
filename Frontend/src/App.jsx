@@ -4,8 +4,8 @@ import Register from './pages/Auth/Register'
 import Login from './pages/Auth/Login'
 import Layout from "./pages/Layout"
 import Home from "./pages/Home/Home"
-import CandidateProfile from "./pages/Candidate/CandidateProfile"
 import { LayersCounter } from "@fortawesome/react-fontawesome"
+import CandidateProfilePage from "./pages/Candidate/CandidateProfilePage"
 function App() {
 
   return (
@@ -20,7 +20,7 @@ function App() {
           <Route element={<Layout />}>
 
             <Route path="/" element={<div>dashboard</div>} />
-            <Route path="/profile" element={<CandidateProfile/>} />
+            <Route path="/profile" element={<CandidateProfilePage/>} />
           </Route>
         </Routes>
      

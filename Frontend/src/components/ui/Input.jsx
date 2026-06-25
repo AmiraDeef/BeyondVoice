@@ -19,7 +19,7 @@ function Input({ placeholder, icon,type="text" }) {
                     type={type}
                     name={placeholder} required
                     placeholder={placeholderTexts[placeholder] || placeholder}
-                    autocomplete={placeholder}
+                    autoComplete={placeholder}
                     className="block w-full text-base rounded-md bg-transparent border-none placeholder:text-[var(--grey-color)]  focus-ring-0 outline-none "/>
             </div>
 
