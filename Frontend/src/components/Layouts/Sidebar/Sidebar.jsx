@@ -11,7 +11,7 @@ import {
   faRightFromBracket 
 } from "@fortawesome/free-solid-svg-icons";
 
-function Sidebar(){
+function Sidebar({ isOpen, setIsOpen }){
 
    const links = [
   { icon: faHouse, title: "Dashboard", path: "/" },
@@ -26,12 +26,21 @@ function Sidebar(){
 
 
     return(<>
-      <aside className="h-screen w-64 bg-[var(--main-color)] text-white py-6 flex flex-col justify-between sticky top-0 left-0 flex-shrink-0">
-        <div>
+      <aside className={` w-64 h-full bg-[#1B3A5C] text-white flex flex-col transition-transform duration-300 ease-in-out z-50
+      fixed inset-y-0 left-0 -translate-x-full md:relative md:translate-x-0
+      ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+    `}>        
+        <button 
+        onClick={() => setIsOpen(false)} 
+        className="md:hidden absolute top-4 right-4 text-white"
+      >
+        ✕
+      </button>
+        <div className="flex-1 overflow-y-auto">
          
-          <div className="font-semibold px-6 mb-6 text-xl tracking-wide border-b border-slate-700 pb-4 opacity-90">
-            BeyondVoice
-          </div>
+         <div className="h-16 px-6 font-bold text-xl tracking-wide border-b border-slate-700/50 flex items-center opacity-95">
+    BeyondVoice
+  </div>
 
           <nav className="px-3 space-y-1">
             {links.map((item, index) => (

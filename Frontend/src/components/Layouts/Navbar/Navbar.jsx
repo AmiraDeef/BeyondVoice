@@ -1,11 +1,19 @@
 import { Link } from "react-router-dom";
+import { Menu } from "lucide-react";
 
-function Navbar() {
+function Navbar({ onMenuClick }) {
   return (
     <>
+
       <div className=" bg-white border-b border-gray-100 sticky top-0 z-50 ">
         <div className="container mx-auto flex items-center justify-between h-16 px-4 md:px-8">
-          <div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={onMenuClick}
+              className="block md:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
             <Link
               to="/"
               className="text-xl font-bold text-[var(--main-color)] tracking-tight"
@@ -29,6 +37,7 @@ function Navbar() {
           </div>
         </div>
       </div>
+
     </>
   );
 }
