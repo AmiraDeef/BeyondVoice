@@ -1,18 +1,64 @@
-// function ProfileForm(){
-//     return(<>
-//     <div className="max-w-4xl mx-auto p-4">
-//         <div className="flex gap-6 border-b border-gray-200 pb-3 mb-6">
-//         <button type="button" className="text-sm font-semibold text-[var(--secondary-color)] border-b-2 border-teal-600 pb-3 -mb-[14px]">Profile</button>
-//         <button type="button" className="text-sm font-medium text-gray-500 pb-3">Security</button>
-//       </div>
+import { useForm } from "react-hook-form";
+import SectionCard from "../../ui/SectionCard";
+import PersonalInfoSection from "./PersonalInfoSection";
+import SkillsSection from "./SkillsSection";
+import ExperienceSection from "./ExperienceSection";
+import EducationSection from "./EducationSection";
+import LinksSection from "./LinksSection";
+
+
+function ProfileForm() {
+
+    const { register, control, handleSubmit, setValue } = useForm();
+
+    const onSubmit = async (data) => {
+        console.log(data);
+
+        // axios.put(...)
+    };
+    return (<>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <SectionCard title="Personal Information">
+                <PersonalInfoSection register={register} />
+            </SectionCard>
+
+            <SectionCard title="Skills">
+                <SkillsSection setValue={setValue} skills={[]} />
+            </SectionCard>
+
+            <SectionCard title="Experience">
+                <ExperienceSection register={register} control={control} />
+            </SectionCard>
+
+            <SectionCard title="Education">
+                <EducationSection register={register} control={control} />
+            </SectionCard>
+
+            <SectionCard title="Links">
+                <LinksSection register={register} />
+            </SectionCard>
+
+            <button
+                type="submit"
+                className="
+                    bg-[var(--main-color)]
+                    text-white
+                    px-6
+                    py-3
+                    rounded-xl
+                    mt-4
+                "
+            >
+                Save Profile
+            </button>
+        </form>
 
 
 
-//     </div>
-    
-    
-    
-//     </>)
-// }
 
-// export default ProfileForm;
+    </>
+    )
+}
+
+
+export default ProfileForm;

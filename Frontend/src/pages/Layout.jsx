@@ -9,12 +9,12 @@ function DashboardLayout() {
     <>
       <div className="flex h-screen overflow-hidden bg-[var(--bg-color)]">
         <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
-{isSidebarOpen && (
-        <div 
-          className="fixed inset-0 bg-black/40 z-40 md:hidden transition-opacity"
-          onClick={() => setIsSidebarOpen(false)}
-        />
-      )}
+        {isSidebarOpen && (
+          <div
+            className="fixed inset-0 bg-black/40 z-40 md:hidden transition-opacity"
+            onClick={() => setIsSidebarOpen(false)}
+          />
+        )}
         <div className="flex-1 flex flex-col h-full overflow-hidden w-full">
           <Navbar onMenuClick={() => setIsSidebarOpen(true)} />
 
