@@ -7,26 +7,40 @@ import Home from "./pages/Home/Home"
 import { LayersCounter } from "@fortawesome/react-fontawesome"
 import CandidateProfilePage from "./pages/Candidate/CandidateProfilePage"
 import CompanyProfilePage from "./pages/Company/CompanyProfilePage"
+import ProtectedRoute from "./routes/ProtectedRoutes"
+import RoleRoute from "./routes/RoleRoute"
 function App() {
 
   return (
     <>
 
- 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
 
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        <Route element={<ProtectedRoute />}>
           <Route element={<Layout />}>
 
-            <Route path="/" element={<div>dashboard</div>} />
-            <Route path="candidate/profile" element={<CandidateProfilePage/>} />
-            <Route path="company/profile" element={<CompanyProfilePage/>} />
-          
+            <Route element={<RoleRoute role="candidate" />}>
+              <Route
+                path="candidate/profile"
+                element={<CandidateProfilePage />}
+              />
+            </Route>
+
+            <Route element={<RoleRoute role="company" />}>
+              <Route
+                path="company/profile"
+                element={<CompanyProfilePage />}
+              />
+            </Route>
+
           </Route>
-        </Routes>
-     
+        </Route>
+      </Routes>
+
 
     </>
   )

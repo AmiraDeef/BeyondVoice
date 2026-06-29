@@ -1,7 +1,16 @@
 import { Link } from "react-router-dom";
 import { Menu } from "lucide-react";
+import { useAuth } from "../../../hooks/useAuth";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBell,
+} from "@fortawesome/free-solid-svg-icons";
+
 
 function Navbar({ onMenuClick }) {
+  const { user } = useAuth();
+
+
   return (
     <>
 
@@ -22,18 +31,47 @@ function Navbar({ onMenuClick }) {
             </Link>
           </div>
           <div className="flex items-center space-x-4">
-            <Link
-              to="/register"
-              className="text-[var(--main-color)] border border-[var(--main-color)] hover:bg-[var(--main-color)] hover:text-white py-2 px-5 rounded-lg text-base font-medium"
-            >
-              Register
-            </Link>
-            <Link
-              to="/login"
-              className=" border border-[var(--secondary-color)] bg-[var(--secondary-color)] text-white py-2 px-5 rounded-lg text-base font-medium"
-            >
-              Login
-            </Link>
+            {
+              !user ? (
+
+
+                <div className="flex items-center space-x-4">
+                  <Link
+                    to="/register"
+                    className="text-[var(--main-color)] border border-[var(--main-color)] hover:bg-[var(--main-color)] hover:text-white py-2 px-5 rounded-lg text-base font-medium"
+                  >
+                    Register
+                  </Link>
+                  <Link
+                    to="/login"
+                    className=" border border-[var(--secondary-color)] bg-[var(--secondary-color)] text-white py-2 px-5 rounded-lg text-base font-medium"
+                  >
+                    Login
+                  </Link>
+                </div>
+
+              )
+
+                :
+
+                (
+
+                  <div className="flex items-center gap-3">
+
+                    <span className="font-semibold">
+                      Hello {user.fullName}
+                    </span>
+
+                    {/* <img
+                      src={profileImg}
+                      className="w-10 h-10 rounded-full"
+                    /> */}
+                    <FontAwesomeIcon icon={faBell} className="w-4 h-4 text-center text-[var(--secondary-color)]" />
+
+                  </div>
+
+                )
+            }
           </div>
         </div>
       </div>
