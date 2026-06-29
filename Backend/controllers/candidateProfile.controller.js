@@ -7,6 +7,7 @@ const getProfile = async (req, res, next) => {
 
         const userId = req.userId;
         console.log(userId, req.userRole);
+        console.log(req.body);
 
         const canProfile = await Candidate.findOne({ user: userId }).populate('user', 'fullName email profilePhoto')
         if (!canProfile) return res.status(404).json({ message: "Profile not found" })

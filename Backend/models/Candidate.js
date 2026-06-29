@@ -48,7 +48,8 @@ const candidateSchema=new mongoose.Schema({
     },
     portfolioUrl:{
         type:String
-    },  workType: {
+    }, 
+     workType: {
         type: String,
         enum: [
             "remote",

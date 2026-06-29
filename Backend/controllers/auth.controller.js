@@ -65,7 +65,11 @@ const login = async (req, res,next) => {
         if (!matchedPass) return res.status(400).json({ message: "invliademail or password" })
         const token = jwt.sign({ id: existUser._id ,role:existUser.role}, process.env.JWT_SK, { expiresIn: '1d' })
 
-        return res.status(200).json({ message: "login success", token })
+        return res.status(200).json({ message: "login success", token,user: {
+        id: existUser._id,
+        fullName: existUser.fullName,
+        role: existUser.role
+    }})
 
 
     } catch (error) {

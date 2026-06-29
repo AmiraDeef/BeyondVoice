@@ -1,10 +1,6 @@
 function ProfileInput({
   label,
-  name,
-  type = "text",
-  value,
-  onChange,
-  placeholder
+...props
 }) {
   return (
     <div className="space-y-2">
@@ -13,11 +9,7 @@ function ProfileInput({
       </label>
 
       <input
-        type={type}
-        name={name}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
+
         className="
         w-full
         border
@@ -28,6 +20,7 @@ function ProfileInput({
         outline-none
         focus:border-[var(--main-color)]
         "
+         {...props}
       />
     </div>
   );

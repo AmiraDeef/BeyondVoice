@@ -60,6 +60,23 @@ function EducationSection({
                         />
 
                     </div>
+                     <button
+                        type="button"
+                        onClick={() => remove(index)}
+                        className="
+                        mt-4
+                        text-red-500 hover:bg-red-500
+                        hover:text-white
+                        outline-1 outline-red-500
+                        px-4 py-2 rounded
+                        bg-transparent
+                        rounded-xl
+                        
+                    "
+                    >
+                        Remove
+                    </button>
+
 
                 </div>
 

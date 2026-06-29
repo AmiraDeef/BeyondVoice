@@ -1,3 +1,4 @@
+
 import CompanyInfoSection from "./CompanyInfoSection";
 import CompanyStatsSection from "./CompanyStatsSection";
 import CompanyLinksSection from "./CompanyLinksSection";
@@ -5,7 +6,7 @@ import CompanyLinksSection from "./CompanyLinksSection";
 function CompanyProfileForm() {
 
     return (
-
+        <>
         <form className="space-y-8">
 
             <CompanyInfoSection />
@@ -24,6 +25,8 @@ function CompanyProfileForm() {
             </div>
 
         </form>
+        </>
+
 
     );
 }
