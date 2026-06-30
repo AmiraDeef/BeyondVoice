@@ -9,9 +9,11 @@ import {
   faBriefcase,faRightFromBracket,
   faFileInvoice,
   faUsers,
+  faBell,
   faGear,
 } from "@fortawesome/free-solid-svg-icons";
 import comLogo from"../../../assets/comLogo.jpeg"
+
 
 function Sidebar({ isOpen, setIsOpen }) {
   const {user,setToken}=useAuth()
@@ -36,6 +38,11 @@ const links =
           path: `${basePath}/applications`,
         },
         {
+          icon: faBell,
+          title: "Notifications",
+          path: `${basePath}/notification`,
+        },
+        {
           icon: faGear,
           title: "Profile",
           path: `${basePath}/profile`,
@@ -56,6 +63,11 @@ const links =
           icon: faUsers,
           title: "Applicants",
           path: `${basePath}/applicants`,
+        },
+         {
+          icon: faBell,
+          title: "Notifications",
+          path: `${basePath}/notification`,
         },
         {
           icon: faGear,

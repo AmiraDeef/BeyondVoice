@@ -9,6 +9,7 @@ import CandidateProfilePage from "./pages/Candidate/CandidateProfilePage"
 import CompanyProfilePage from "./pages/Company/CompanyProfilePage"
 import ProtectedRoute from "./routes/ProtectedRoutes"
 import RoleRoute from "./routes/RoleRoute"
+import Dashboard from "./pages/Candidate/Dashboard"
 function App() {
 
   return (
@@ -27,6 +28,10 @@ function App() {
               <Route
                 path="candidate/profile"
                 element={<CandidateProfilePage />}
+              />
+               <Route
+                path="candidate/dashboard"
+                element={<Dashboard />}
               />
             </Route>
 
