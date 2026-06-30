@@ -100,7 +100,7 @@ function ProfileForm({ profile }) {
     }
 
     // ---------------- Skills ----------------
-    if (text.includes("skills")) {
+    if (text.includes("skill")) {
       serverErr.skills = msg;
       return;
     }
