@@ -36,9 +36,13 @@ const candidateProfileSchema = joi.object({
       }),
     )
     .optional(),
-  industry: joi.string().trim().required().messages({
+  industry: joi.string().trim().max(100).min(10).required().messages({
     "string.empty": "Industry Field is required",
+    "string.min": "industry should be at least 3 characters"
   }),
+   workType: joi.string().valid('remote', 'onsite', 'hybrid').required().messages({
+          'any.only': 'Work type must be either remote, onsite, or hybrid.'
+      }),
   githubUrl: joi.string().uri().optional().allow(""),
   linkedinUrl: joi.string().uri().optional().allow(""),
   portfolioUrl: joi.string().uri().optional().allow(""),

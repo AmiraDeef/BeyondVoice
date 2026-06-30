@@ -15,13 +15,14 @@ const getProfile = async (req, res, next) => {
             fullName: canProfile.user?.fullName ? 10 : 0,
             profilePhoto: canProfile.user?.profilePhoto ? 10 : 0,
             title: canProfile.title ? 15 : 0,
-            bio: canProfile.bio ? 10 : 0,
+            bio: canProfile.bio ? 5 : 0,
+            workType:canProfile.workType?5:0,
             skills: canProfile.skills?.length > 0 ? 15 : 0,
             experience: canProfile.experience?.length > 0 ? 20 : 0,
             education: canProfile.education?.length > 0 ? 10 : 0,
             links: (canProfile.githubUrl || canProfile.linkedinUrl || canProfile.portfolioUrl) ? 10 : 0
         };
-        const completeScore = proCount.fullName + proCount.bio + proCount.education + proCount.experience + proCount.links + proCount.profilePhoto + proCount.skills + proCount.title
+        const completeScore = proCount.fullName + proCount.bio + proCount.education + proCount.experience + proCount.links + proCount.profilePhoto + proCount.skills + proCount.title+proCount.workType
         // console.log(completeScore)
 
         return res.status(200).json({ canProfile, completeScore });

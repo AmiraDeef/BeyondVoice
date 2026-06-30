@@ -1,7 +1,7 @@
 const joi =require("joi");
 
 const companyProSchema=joi.object({
-    companyName: joi.string().trim().required().messages({
+    companyName: joi.string().trim().min(3).max(100).required().messages({
         'string.empty': 'Company name is required.'
     }),
     desc: joi.string().trim().max(1000).allow(''),
@@ -9,7 +9,7 @@ const companyProSchema=joi.object({
         'string.uri': 'Please enter a valid website URL.'
     }),
    
-    industry: joi.string().trim().required().messages({
+    industry: joi.string().trim().min(3).required().messages({
         'string.empty': 'Industry field is required.'
     }),
 
