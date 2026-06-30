@@ -1,29 +1,36 @@
 import ProfileInput from "../../ui/ProfileInput";
 import TextArea from "../../ui/TextArea";
 
-function PersonalInfoSection({ register,errors,serverErrors }) {
+function PersonalInfoSection({ register, errors, serverErrors }) {
   return (
     <div className="grid gap-6">
-      <ProfileInput label="Professional Title" {...register("title")} />
-      {errors?.title && (
+      <ProfileInput
+        label="Professional Title"
+        {...register("title")}
+      />
+
+      {serverErrors.title && (
         <p className="text-red-500 text-sm">
-          {errors.title}
+          {serverErrors.title}
         </p>
       )}
-      <ProfileInput label="Industry" {...register("industry")} />
+      <ProfileInput label="Industry" {...register("industry")}  />
+      {serverErrors.industry && (
+        <p className="text-red-500 text-sm">
+          {serverErrors.industry}
+        </p>
+      )}
 
-      {errors?.industry && (
-        <p className="text-red-500 text-sm">
-          {errors.industry}
-        </p>
-      )} <div className="workType flex flex-col"><h2 className="text-sm font-semibold mb-6 text-[var(--main-color)] ">
-        Work Type
-      </h2>
-       {errors?.workType && (
-        <p className="text-red-500 text-sm">
-          {errors.workType}
-        </p>
-      )} 
+      <div className="workType flex flex-col">
+        <h2 className="text-sm font-semibold mb-6 text-[var(--main-color)] ">
+          Work Type
+        </h2>
+
+        {serverErrors.workType && (
+          <p className="text-red-500 text-sm">
+            {serverErrors.workType}
+          </p>
+        )}
         <select
           {...register("workType")}
           className="border p-3 rounded-xl border-[var(--main-color)] text-[var(--main-color)] focus:outline-none focus:ring-1 focus:ring-[var(--main-color)]"
@@ -39,6 +46,11 @@ function PersonalInfoSection({ register,errors,serverErrors }) {
 
 
       <TextArea label="Bio" {...register("bio")} />
+       {serverErrors.bio && (
+          <p className="text-red-500 text-sm">
+            {serverErrors.bio}
+          </p>
+        )}
     </div>
   );
 }

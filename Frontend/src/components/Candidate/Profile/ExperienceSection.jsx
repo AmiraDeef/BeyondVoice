@@ -4,7 +4,7 @@ import TextArea from "../../ui/TextArea";
 
 function ExperienceSection({
     control,
-    register
+    register, serverErrors
 }) {
 
     const { fields, append, remove } =
@@ -12,7 +12,7 @@ function ExperienceSection({
             control,
             name: "experience"
         });
-        
+
 
     return (
         <div>
@@ -28,38 +28,64 @@ function ExperienceSection({
                     mb-5
                 "
                 >
-
                     <div className="grid md:grid-cols-2 gap-4">
 
-                        <ProfileInput
+                       <div> <ProfileInput
                             label="Company Name"
                             {...register(
                                 `experience.${index}.companyName`
                             )}
                         />
 
-                        <ProfileInput
+                        {serverErrors?.experience?.[index]?.companyName && (
+                            <p className="text-red-500 text-sm">
+                                {serverErrors.experience[index].companyName.split(".")
+                                    .pop()
+                                    .split('"')}
+                            </p>
+                        )}</div>
+
+                      <div>  <ProfileInput
                             label="Role"
                             {...register(
                                 `experience.${index}.role`
                             )}
                         />
+                        {serverErrors?.experience?.[index]?.role && (
+                            <p className="text-red-500 text-sm">
+                                {serverErrors.experience[index].role.split(".")
+                                    .pop()
+                                    .split('"')}
+                            </p>
+                        )}</div>
 
-                        <ProfileInput
+                      <div>  <ProfileInput
                             type="date"
                             label="Start Date"
                             {...register(
                                 `experience.${index}.startDate`
                             )}
                         />
+                        {serverErrors?.experience?.[index]?.startDate && (
+                            <p className="text-red-500 text-sm">
+                                {serverErrors.experience[index].startDate.split(".")
+                                    .pop()
+                                    .split('"')}
+                            </p>)}</div>
 
-                        <ProfileInput
+                       <div> <ProfileInput
                             type="date"
                             label="End Date"
                             {...register(
                                 `experience.${index}.endDate`
                             )}
-                        />
+                        />{serverErrors?.experience?.[index]?.endDate && (
+                            <p className="text-red-500 text-sm">
+                                {serverErrors.experience[index].endDate.split(".")
+                                    .pop()
+                                    .split('"')}
+                            </p>
+                        )}</div>
 
                     </div>
 
@@ -70,7 +96,13 @@ function ExperienceSection({
                             {...register(
                                 `experience.${index}.description`
                             )}
-                        />
+                        />{serverErrors?.experience?.[index]?.description && (
+                            <p className="text-red-500 text-sm">
+                                {serverErrors.experience[index].description.split(".")
+                                    .pop()
+                                    .split('"')}
+                            </p>
+                        )}
 
                     </div>
 

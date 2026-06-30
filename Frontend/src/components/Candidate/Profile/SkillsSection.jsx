@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 
-function SkillsSection({ skills = [], setValue }) {
+function SkillsSection({
+  skills = [],
+  setValue,
+  serverErrors
+}) {
+
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
@@ -10,7 +15,7 @@ function SkillsSection({ skills = [], setValue }) {
     setSelectedSkills(skills);
   }, [skills]);
 
-    useEffect(() => {
+  useEffect(() => {
     setValue("skills", selectedSkills);
   }, [selectedSkills, setValue]);
 
@@ -31,7 +36,7 @@ function SkillsSection({ skills = [], setValue }) {
     setSelectedSkills([
       ...selectedSkills,
       value,
-      
+
     ]);
 
     setInputValue("");
@@ -48,10 +53,11 @@ function SkillsSection({ skills = [], setValue }) {
       <label className="block text-sm font-semibold text-[#1B3A5C] mb-2">
         Technical Skills
       </label>
+     
 
       <div className="w-full min-h-[48px] p-2 bg-white border border-gray-200 rounded-xl flex flex-wrap items-center gap-2">
-
-        {selectedSkills.map((skill,index) => (
+ 
+        {selectedSkills.map((skill, index) => (
           <div
             key={index}
             className="flex items-center gap-1.5 bg-[#EBF5F5] text-[var(--secondary-color)] px-3 py-1 rounded-full text-sm font-medium border border-[#D1EAEA]"
@@ -80,7 +86,13 @@ function SkillsSection({ skills = [], setValue }) {
           }}
           className="flex-1 min-w-[150px] border-none outline-none"
         />
+     
       </div>
+        {serverErrors?.skills && (
+          <p className="text-red-500 text-sm mb-2">
+            {serverErrors.skills}
+          </p>
+        )}
     </div>
   );
 }

@@ -17,15 +17,18 @@ function ProfileForm({ profile }) {
         reset,
         setValue,
         formState: { errors }
-    } = useForm({defaultValues: {
-        experience: [],
-        education: [],
-        skills: []}
+    } = useForm({
+        defaultValues: {
+            experience: [],
+            education: [],
+            skills: []
+        }
     });
 
 
     useEffect(() => {
         if (profile) {
+            console.log(profile);
             reset(profile);
         }
     }, [profile, reset]);
@@ -45,10 +48,125 @@ function ProfileForm({ profile }) {
             alert("Profile saved successfully");
 
         } catch (err) {
-            console.log(err.response?.data);
-            if (err.response?.data.status === 400) { setServerErrors(err.response.data.errors); }
-        }
+  const messages = Array.isArray(err.response?.data?.message)
+    ? err.response.data.message
+    : [err.response?.data?.message];
 
+  const serverErr = {
+    experience: [],
+    education: [],
+  };
+
+  messages.forEach((msg) => {
+    if (!msg) return;
+
+    const text = msg.toLowerCase();
+
+    // ---------------- Personal ----------------
+    if (text.includes("title")) {
+      serverErr.title = msg;
+      return;
+    }
+
+    if (text.includes("industry")) {
+      serverErr.industry = msg;
+      return;
+    }
+
+    if (text.includes("bio")) {
+      serverErr.bio = msg;
+      return;
+    }
+
+    if (text.includes("worktype") || text.includes("work type")) {
+      serverErr.workType = msg;
+      return;
+    }
+
+    // ---------------- Links ----------------
+    if (text.includes("githuburl")) {
+      serverErr.githubUrl = msg;
+      return;
+    }
+
+    if (text.includes("linkedinurl")) {
+      serverErr.linkedinUrl = msg;
+      return;
+    }
+
+    if (text.includes("portfoliourl")) {
+      serverErr.portfolioUrl = msg;
+      return;
+    }
+
+    // ---------------- Skills ----------------
+    if (text.includes("skills")) {
+      serverErr.skills = msg;
+      return;
+    }
+
+    // ---------------- Experience ----------------
+    if (text.includes("experience")) {
+
+      const match = msg.match(/\[(\d+)\]/);
+
+      if (!match) return;
+
+      const index = Number(match[1]);
+
+      if (!serverErr.experience[index]) {
+        serverErr.experience[index] = {};
+      }
+
+      if (text.includes("companyname"))
+        serverErr.experience[index].companyName = msg;
+
+      if (text.includes("role"))
+        serverErr.experience[index].role = msg;
+
+      if (text.includes("startdate"))
+        serverErr.experience[index].startDate = msg;
+
+      if (text.includes("enddate"))
+        serverErr.experience[index].endDate = msg;
+
+      if (text.includes("description"))
+        serverErr.experience[index].description = msg;
+
+      return;
+    }
+
+    // ---------------- Education ----------------
+    if (text.includes("education")) {
+
+      const match = msg.match(/\[(\d+)\]/);
+
+      if (!match) return;
+
+      const index = Number(match[1]);
+
+      if (!serverErr.education[index]) {
+        serverErr.education[index] = {};
+      }
+
+      if (text.includes("institution"))
+        serverErr.education[index].institution = msg;
+
+      if (text.includes("degree"))
+        serverErr.education[index].degree = msg;
+
+      if (text.includes("fieldofstudy"))
+        serverErr.education[index].fieldOfStudy = msg;
+
+      if (text.includes("graduationyear"))
+        serverErr.education[index].graduationYear = msg;
+    }
+  });
+
+  console.log(serverErr);
+
+  setServerErrors(serverErr);
+}
     };
     return (<>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -60,6 +178,7 @@ function ProfileForm({ profile }) {
                 <SkillsSection
                     skills={profile?.skills || []}
                     setValue={setValue}
+                    serverErrors={serverErrors}
                 />
             </SectionCard>
 
@@ -72,7 +191,7 @@ function ProfileForm({ profile }) {
             </SectionCard>
 
             <SectionCard title="Links">
-                <LinksSection register={register} />
+                <LinksSection register={register} serverErrors={serverErrors} />
             </SectionCard>
 
             <button
