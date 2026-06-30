@@ -11,6 +11,7 @@ import {
   faUsers,
   faGear,
 } from "@fortawesome/free-solid-svg-icons";
+import comLogo from"../../../assets/comLogo.jpeg"
 
 function Sidebar({ isOpen, setIsOpen }) {
   const {user,setToken}=useAuth()
@@ -120,7 +121,7 @@ const links =
         <div className="flex items-center gap-3 mb-4">
           
           <img
-            src={profileImg}
+            src={comLogo}
             alt=""
             className="w-10 h-10 rounded-full object-cover "
           />

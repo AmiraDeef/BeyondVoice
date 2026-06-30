@@ -164,7 +164,14 @@ function AuthForm({ type, form, onSubmit, error }) {
                         {isRegister ? "Login" : "Register"}
                     </Link>
 
-                </p>
+                </p><div className="border-t border-[var(--grey-color)] py-4 mt-8 text-center">
+                    <Link
+                        to="/"
+                        className="text-[var(--grey-color)] text-sm hover:text-gray-600 transition-colors"
+                    >
+                        ← Back to home
+                    </Link>
+                </div>
 
             </div>
         </div>
