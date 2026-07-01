@@ -52,7 +52,7 @@ const jobSchema = new mongoose.Schema({
     //     enum: [
     //         "textInterview",
     //         "writtenInstructions",
-    //         "visualNotifications"
+    //         "signLangueageInterview"
     //     ],
     //     required: [true, 'Accessability Support is required'],
     // }

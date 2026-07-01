@@ -1,14 +1,35 @@
 import ProfileProgress from "../../components/Candidate/Dashboard/ProfileProgress";
+import InterviewCard from "../../components/Candidate/Dashboard/InterviewCard";
+import StatsCards from "../../components/Candidate/Dashboard/StateCard";
+import RecommendedJobs from "../../components/Candidate/Dashboard/RecommendedJobs";
+import RightSidebar from "../../components/Candidate/Dashboard/RightSide";
+import { stats, jobs, interview } from "./data";
+function Dashboard() {
+    return (
+    <>
 
-function Dashboard(){
-    return(<>
+    <div className="grid grid-cols-12 gap-6">
 
+      <div className="col-span-9">
 
-    <div className="flex ">
-{/* static untill i pass using db */}
-    <ProfileProgress score="40" />
+        <StatsCards stats={stats} />
+
+        <RecommendedJobs jobs={jobs} />
+
+      </div>
+
+      <div className="col-span-3">
+
+        <RightSidebar
+          interview={interview}
+          profile={78}
+        />
+
+      </div>
 
     </div>
+
+
     </>)
 }
 
